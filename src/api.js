@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://bristle-six-swamp.glitch.me';
 
 export const fetchTransactions = async () => {
     try {
