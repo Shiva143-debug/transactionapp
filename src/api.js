@@ -30,8 +30,9 @@ export const updateTransaction = async (id, transaction) => {
 };
 
 export const deleteTransaction = async (id) => {
+    console.log(id)
     try {
-        const response = await axios.delete(`${API_URL}/transactions/${id}`);
+        const response = await axios.delete(`${API_URL}/deletetransactions/${id}`);
         return response.data;
     } catch (error) {
         throw error;

@@ -114,7 +114,7 @@
 
 
 import React, { Component } from 'react';
-import { fetchTransactions } from './api'; // Import the fetchTransactions function
+import { fetchTransactions,deleteTransaction } from './api'; // Import the fetchTransactions function
 
 class TransactionsList extends Component {
     constructor(props) {
@@ -256,9 +256,9 @@ class TransactionsList extends Component {
 
     handleDelete = async (transactionId) => {
         try {
-            await deleteTransaction();
+            await deleteTransaction(transactionId);
             // Refresh the transaction list after deletion
-            this.props.onTransactionUpdated();
+            this.loadTransactions();
         } catch (error) {
             console.error('Error deleting transaction:', error);
         }
