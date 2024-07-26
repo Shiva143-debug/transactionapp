@@ -254,6 +254,16 @@ class TransactionsList extends Component {
     // };
     
 
+    handleDelete = async (transactionId) => {
+        try {
+            await deleteTransaction();
+            // Refresh the transaction list after deletion
+            this.props.onTransactionUpdated();
+        } catch (error) {
+            console.error('Error deleting transaction:', error);
+        }
+    };
+
     render() {
         return (
             <div>
@@ -266,6 +276,7 @@ class TransactionsList extends Component {
                             <th>Credit</th>
                             <th>Debit</th>
                             <th>Running Balance</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -276,6 +287,9 @@ class TransactionsList extends Component {
                                 <td>{transaction.type === 'credit' ? transaction.amount : ''}</td>
                                 <td>{transaction.type === 'debit' ? transaction.amount : ''}</td>
                                 <td>{transaction.running_balance}</td>
+                                <td>
+                                    <button onClick={() => this.handleDelete(transaction.id)}>Delete</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
