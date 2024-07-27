@@ -1,90 +1,10 @@
-// import React, { Component } from 'react';
-// import axios from 'axios';
-
-// class AddTransaction extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             type: 'credit',
-//             amount: '',
-//             description: '',
-//             date: new Date().toISOString().slice(0, 19),
-//         };
-//     }
-
-//     handleChange = (e) => {
-//         this.setState({ [e.target.name]: e.target.value });
-//     };
-
-//     handleSubmit = async (e) => {
-//         e.preventDefault();
-//         const { type, amount, description, date } = this.state;
-
-//         try {
-//             await axios.post('http://localhost:3000/transactions', {
-//                 type,
-//                 amount,
-//                 description,
-//                 date,
-//             });
-//             this.setState({ amount: '', description: '' });
-//             this.props.onTransactionAdded();
-//         } catch (error) {
-//             console.error('Error adding transaction:', error);
-//         }
-//     };
-
-//     render() {
-//         return (
-//             <div>
-//                 <h2>Add Transaction</h2>
-//                 <form onSubmit={this.handleSubmit}>
-//                     <div>
-//                         <label>Type</label>
-//                         <select name="type" value={this.state.type} onChange={this.handleChange}>
-//                             <option value="credit">Credit</option>
-//                             <option value="debit">Debit</option>
-//                         </select>
-//                     </div>
-//                     <div>
-//                         <label>Amount</label>
-//                         <input
-//                             type="number"
-//                             name="amount"
-//                             value={this.state.amount}
-//                             onChange={this.handleChange}
-//                             required
-//                         />
-//                     </div>
-//                     <div>
-//                         <label>Description</label>
-//                         <input
-//                             type="text"
-//                             name="description"
-//                             value={this.state.description}
-//                             onChange={this.handleChange}
-//                         />
-//                     </div>
-//                     <div>
-//                         <label>Date</label>
-//                         <input
-//                             type="datetime-local"
-//                             name="date"
-//                             value={this.state.date}
-//                             onChange={this.handleChange}
-//                         />
-//                     </div>
-//                     <button type="submit">Add Transaction</button>
-//                 </form>
-//             </div>
-//         );
-//     }
-// }
-
-// export default AddTransaction;
-
 import React, { Component } from 'react';
-import { addTransaction } from './api'; // Import the addTransaction function
+import { addTransaction } from './api';
+import { Form, Button, Container } from 'react-bootstrap';
+import { IoIosSave } from "react-icons/io";
+import { MdOutlineCancel } from "react-icons/md";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css"
 
 class AddTransaction extends Component {
     constructor(props) {
@@ -116,50 +36,62 @@ class AddTransaction extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Add Transaction</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label>Type</label>
-                        <select name="type" value={this.state.type} onChange={this.handleChange}>
+            <Container className="mt-4">
+                <h2 className="mb-4 mt-5">New Transaction</h2> {/* Heading with margin-bottom for spacing */}
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="formType" className="form-group-flex">
+                        <Form.Label style={{ fontWeight: 600 }}>Transaction Type:</Form.Label>
+                        <Form.Control
+                            as="select"
+                            name="type"
+                            value={this.state.type}
+                            onChange={this.handleChange}
+                        >
                             <option value="credit">Credit</option>
                             <option value="debit">Debit</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Amount</label>
-                        <input
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formAmount" className="form-group-flex">
+                        <Form.Label style={{ fontWeight: 600 }}>Amount:</Form.Label>
+                        <Form.Control
                             type="number"
                             name="amount"
                             value={this.state.amount}
                             onChange={this.handleChange}
                             required
                         />
-                    </div>
-                    <div>
-                        <label>Description</label>
-                        <input
+                    </Form.Group>
+                    <Form.Group controlId="formDescription" className="form-group-flex">
+                        <Form.Label style={{ fontWeight: 600 }}>Description:</Form.Label>
+                        <Form.Control
                             type="text"
                             name="description"
                             value={this.state.description}
                             onChange={this.handleChange}
+                            required
                         />
-                    </div>
-                    <div>
-                        <label>Date</label>
-                        <input
-                            type="datetime-local"
+                    </Form.Group>
+                    <Form.Group controlId="formDate" className="form-group-flex">
+                        <Form.Label style={{ fontWeight: 600 }}>Date:</Form.Label>
+                        <Form.Control
+                            type="date"
                             name="date"
-                            value={this.state.date}
+                            value={this.state.date.slice(0, 10)} 
                             onChange={this.handleChange}
                         />
+                    </Form.Group>
+                    <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+                        <Button variant="primary" type="submit">
+                        <IoIosSave /> SAVE
+                        </Button>
+                        <Button variant="secondary" onClick={this.props.closeModal} >
+                        <MdOutlineCancel />CANCEL
+                        </Button>
                     </div>
-                    <button type="submit">Add Transaction</button>
-                </form>
-            </div>
+                </Form>
+            </Container>
         );
     }
 }
 
 export default AddTransaction;
-
