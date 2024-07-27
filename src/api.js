@@ -20,14 +20,14 @@ export const addTransaction = async (transaction) => {
     }
 };
 
-export const updateTransaction = async (id, transaction) => {
-    try {
-        const response = await axios.put(`${API_URL}/transactions/${id}`, transaction);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-};
+// export const updateTransaction = async (id, transaction) => {
+//     try {
+//         const response = await axios.put(`${API_URL}/transactions/${id}`, transaction);
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
 
 export const deleteTransaction = async (id) => {
     console.log(id)
